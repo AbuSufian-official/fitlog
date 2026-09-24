@@ -16,7 +16,7 @@ const Library = async() => {
                         <h2 className='text-2xl font-bold'>THE LIBRARY</h2>
                         <p className='text-[14px] text-[#9CA3AF] font-light'>Twelve lifts covering every major muscle group.</p>
                     </div>
-                    <div className='grid grid-cols-3 justify-between items-center gap-6 py-9'>
+                    <div className='grid grid-cols-3 justify-between items-center gap-6 py-12'>
                         {convert.map((obj)=>{
                             return(
                                 
