@@ -16,7 +16,7 @@ const Noshow = () => {
 
                 {/* Go to workouts */}
                 <Link
-                    href="/workouts"
+                    href="http://localhost:3000"
                     className="mt-5 rounded-full bg-[#c8ff00] px-5 py-2.5 text-[10px] font-bold text-black shadow-[0_8px_25px_rgba(200,255,0,0.12)] transition-all duration-300 hover:scale-105 hover:bg-[#d6ff3d] hover:shadow-[0_8px_30px_rgba(200,255,0,0.25)] active:scale-95"
                 >
                     Go to workouts

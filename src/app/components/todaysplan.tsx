@@ -9,11 +9,12 @@ const Todaysplan = () => {
 
     return (
         <>
-            {/* {todaysPlan.length==0 && }
-            {todaysPlan.length>0 && (todaysPlan.map())} */}
-            {todaysPlan.length==0 ? <Noshow/>: (todaysPlan.map((n,index)=>{
+           <div className='flex flex-col gap-5 mt-3'>
+                {todaysPlan.length==0 ? <Noshow/>: (todaysPlan.map((n,index)=>{
                 return(<Plancard key={index} info={n}/>)
             }))}
+           </div>
+            
 
              
 

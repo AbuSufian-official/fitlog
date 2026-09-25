@@ -53,7 +53,7 @@ const MyPlan = () => {
     return (
         <>
 
-            <section className="min-h-screen bg-[#0d0f13] px-4 py-8 text-white sm:px-6 md:py-10 lg:px-10">
+            <section className="min-h-screen  px-4 py-8 text-white sm:px-6 md:py-10 lg:px-10">
 
                 <div className="mx-auto container px-2">
 
@@ -137,11 +137,11 @@ const MyPlan = () => {
 
                             <button
                                 onClick={() => handeltab('toplan')}
-                                className={`${Boolean(plan === 'toplan') ? `bg-[#c8ff00]` : 'bg-transparent text-[#858b97]'} ${Boolean(plan === 'toplan') ? `text-black` : 'text-[#858b97]'} text-[12px] rounded-md font-bold  px-5 py-2`}>Today's Plan</button>
+                                className={`${Boolean(plan === 'toplan') ? `bg-[#1F242D] text-white` : 'bg-transparent text-[#858b97]'} ${Boolean(plan === 'toplan') ? `text-black` : 'text-[#858b97]'} text-[12px] rounded-md font-bold  px-5 py-2`}>Today's Plan</button>
 
                             <button
                                 onClick={() => handeltab('saveplan')}
-                                className={`${Boolean(plan === 'saveplan') ? "bg-[#c8ff00] text-black" : 'bg-transparent text-[#858b97]'} text-[12px] font-bold rounded-md px-5 py-2`}>Saved</button>
+                                className={`${Boolean(plan === 'saveplan') ? "bg-[#1F242D] text-white" : 'bg-transparent text-[#858b97]'} text-[12px] font-bold rounded-md px-5 py-2`}>Saved</button>
 
                         </div>
 

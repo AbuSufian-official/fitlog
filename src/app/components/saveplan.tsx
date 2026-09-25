@@ -6,7 +6,7 @@ import Noshow from './noshow';
 const Saveplan = () => {
     let { savePlan,setsaveplan } = useContext(userContext)
     return (
-        <div>
+        <div className='flex flex-col gap-5 mt-3'>
             {savePlan.length==0? (<Noshow/>) : (savePlan.map((deta)=>{
                 return(<Saveplancard key={deta.id} infor={deta}/>)
             })) }
