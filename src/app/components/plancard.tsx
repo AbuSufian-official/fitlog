@@ -1,24 +1,51 @@
 "use client"
-import React, { useContext,useState } from 'react';
+import React, { useContext, useState } from 'react';
 import Image from "next/image";
 import Link from 'next/link';
 import { userContext } from '../context/context';
 import { FaCheck } from "react-icons/fa";
+import { toast, Bounce } from 'react-toastify';
+
+
+
 const Plancard = ({ info }) => {
 
 
     let { todaysPlan, settodaysplan } = useContext(userContext)
-    let [active,setactive]=useState(false)
+    let [active, setactive] = useState(false)
 
     function handelbtnDel() {
 
         if (Boolean(todaysPlan.find((n) => n == info))) {
             settodaysplan(todaysPlan.filter((n) => n != info))
+            toast.success(`${info.name} remove`, {
+                position: "top-right",
+                autoClose: 1000,
+                hideProgressBar: true,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            });
         }
+
     }
 
-    function handelcheckbtn(){
+    function handelcheckbtn() {
         setactive(!active)
+        toast.success(`${info.name} mark down`, {
+            position: "top-right",
+            autoClose: 1000,
+            hideProgressBar: true,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            transition: Bounce,
+        });
     }
 
 
@@ -27,7 +54,7 @@ const Plancard = ({ info }) => {
 
     return (
         <>
-            <div className={` ${active? 'border-[#c8ff00]':'border-[#272c35]'}  w-full rounded-2xl border  bg-[#15181e] p-3 transition-all duration-300  hover:bg-[#181c23]`}>
+            <div className={` ${active ? 'border-[#c8ff00]' : 'border-[#272c35]'}  w-full rounded-2xl border  bg-[#15181e] p-3 transition-all duration-300  hover:bg-[#181c23]`}>
                 <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
 
                     {/* ================= IMAGE ================= */}
@@ -123,13 +150,13 @@ const Plancard = ({ info }) => {
 
                         {/* Mark Done */}
                         <button
-                        onClick={handelcheckbtn}
+                            onClick={handelcheckbtn}
                             type="button"
                             className="flex items-center gap-1.5 rounded-full bg-[#c8ff00] px-4 py-2 text-[10px] font-bold text-black transition-all duration-300 hover:bg-[#d7ff42] hover:shadow-[0_0_20px_rgba(200,255,0,0.18)] active:scale-95"
                         >
                             {/* Check icon */}
-                            {active ? <FaCheck />:''}
-                            
+                            {active ? <FaCheck /> : ''}
+
 
                             Mark as Done
                         </button>

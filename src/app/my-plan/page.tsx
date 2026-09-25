@@ -4,6 +4,8 @@ import Link from "next/link";
 import Todaysplan from '../components/todaysplan';
 import Saveplan from '../components/saveplan';
 import { userContext } from '../context/context';
+import { FaChevronDown } from "react-icons/fa";
+
 const MyPlan = () => {
     let [plan, setplan] = useState('toplan')
     let { savePlan, todaysPlan, settodaysplan, setsaveplan } = useContext(userContext)
@@ -147,18 +149,19 @@ const MyPlan = () => {
 
 
                         {/* Sort */}
-                        <div className="flex items-center gap-2">
+                        <div className="flex gap-4 items-center justify-between">
 
-                            <span className="text-[10px] text-[#858b97] sm:text-xs">
+                            <p className="text-[16px] text-[#858b97] sm:text-xs">
                                 Sort By
-                            </span>
-
-                            <select onChange={(e) => hendelSort(e.target.value)} defaultValue="Select" className="select select-neutral">
-                                <option disabled={true}>Select</option>
-                                <option value='duration'>Duration</option>
+                            </p>
+                            <div>
+                                <select onChange={(e) => hendelSort(e.target.value)} defaultValue="Duration" className="font-light select select-neutral bg-[#1F242D] border border-[#2a2f39] rounded-md">
+                                <option value='duration'>Duration </option>
                                 <option value='caloriest'>Caloriest</option>
                                 <option value='rating'>Rating</option>
                             </select>
+                            </div>
+                            
 
                         </div>
 

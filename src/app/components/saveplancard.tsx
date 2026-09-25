@@ -2,12 +2,25 @@ import React, { useContext } from 'react';
 import { userContext } from '../context/context';
 import Image from "next/image";
 import Link from 'next/link';
+import { toast,Bounce } from 'react-toastify';
 const Saveplancard = ({infor}) => {
     let {savePlan,setsaveplan}=useContext(userContext)
         function handelbtnDell(){
             
             if(Boolean(savePlan.find((n)=>n==infor))){
                 setsaveplan(savePlan.filter((n)=>n!=infor))
+
+                toast.success(`${infor.name} remove`, {
+                position: "top-right",
+                autoClose: 1000,
+                hideProgressBar: true,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            });
             }
         }
     return (

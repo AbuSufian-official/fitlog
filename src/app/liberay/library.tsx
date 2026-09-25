@@ -1,6 +1,8 @@
 
 import Link from 'next/link';
 import Card from '../card/card';
+import { Suspense } from 'react';
+import Loading from '../card/loading';
 
 
 const Library = async() => {
@@ -17,7 +19,8 @@ const Library = async() => {
                         <p className='text-[14px] text-[#9CA3AF] font-light'>Twelve lifts covering every major muscle group.</p>
                     </div>
                     <div className='grid grid-cols-3 justify-between items-center gap-6 py-12'>
-                        {convert.map((obj)=>{
+                        <Suspense fallback={<Loading/>}>
+                            {convert.map((obj)=>{
                             return(
                                 
                                     <Card key={obj.id} data={obj}/>
@@ -25,6 +28,8 @@ const Library = async() => {
                             
                             )
                         })}
+                        </Suspense>
+                        
                         
                     </div>
                 </div>
