@@ -1,20 +1,55 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import Link from "next/link";
 import Todaysplan from '../components/todaysplan';
 import Saveplan from '../components/saveplan';
-
+import { userContext } from '../context/context';
 const MyPlan = () => {
-    let [plan,setplan]=useState('todaysplan')
-    let [active,setactive]=useState(false)
-    function handeltab(pera){
-        if(pera=='todaysplan'){
-            setactive(!active)
-        }else if(pera=='saveplan'){
-            setactive(!active)
+    let [plan, setplan] = useState('toplan')
+    let { savePlan, todaysPlan, settodaysplan, setsaveplan } = useContext(userContext)
+    function handeltab(pera) {
+        setplan(pera)
+
+    }
+    function hendelSort(peraa) {
+
+        if (peraa == 'duration') {
+            if (plan === 'toplan') {
+                const a = [...todaysPlan]
+                settodaysplan(a.sort((a, b) => a.duration - b.duration))
+            } else {
+                const x = [...savePlan]
+                setsaveplan(x.sort((a, b) => a.duration - b.duration))
+            }
+
+        }
+        if (peraa == 'caloriest') {
+            if (plan === 'toplan') {
+                const b = [...todaysPlan]
+                settodaysplan(b.sort((a, b) => a.caloriesBurned - b.caloriesBurned))
+            } else {
+                const y = [...savePlan]
+                setsaveplan(y.sort((a, b) => a.caloriesBurned - b.caloriesBurned))
+            }
+
+        }
+        if (peraa == 'rating') {
+            if (plan === 'toplan') {
+                const c = [...todaysPlan]
+                settodaysplan(c.sort((a, b) => a.rating - b.rating))
+            } else {
+                const z = [...savePlan]
+                setsaveplan(z.sort((a, b) => a.rating - b.rating))
+            }
+
         }
     }
-    console.log(active)
+
+
+
+
+
+
     return (
         <>
 
@@ -46,7 +81,8 @@ const MyPlan = () => {
                                 </p>
 
                                 <p className="mt-1 text-3xl font-black leading-none text-[#c8ff00] sm:text-4xl">
-                                    2
+
+                                    {plan == 'toplan' ? (todaysPlan.length) : (savePlan.length)}
                                 </p>
                             </div>
 
@@ -58,7 +94,13 @@ const MyPlan = () => {
                                 </p>
 
                                 <p className="mt-1 text-3xl font-black leading-none text-white sm:text-4xl">
-                                    23
+                                    {plan == 'toplan' ? (todaysPlan.reduce((acc, curr) => {
+                                        acc += curr.duration
+                                        return acc
+                                    }, 0)) : (savePlan.reduce((acc, curr) => {
+                                        acc += curr.duration
+                                        return acc
+                                    }, 0))}
                                 </p>
                             </div>
 
@@ -70,7 +112,14 @@ const MyPlan = () => {
                                 </p>
 
                                 <p className="mt-1 text-3xl font-black leading-none text-white sm:text-4xl">
-                                    190
+                                    {plan == 'toplan' ? (todaysPlan.reduce((acc, curr) => {
+                                        acc += curr.caloriesBurned
+                                        return acc
+                                    }, 0)) : (savePlan.reduce((acc, curr) => {
+                                        acc += curr.caloriesBurned
+                                        return acc
+                                    }, 0))}
+
                                 </p>
                             </div>
 
@@ -85,21 +134,14 @@ const MyPlan = () => {
                         {/* Tabs */}
                         <div className="flex w-fit rounded-lg border border-[#252a33] bg-[#14171d] p-1">
 
-                            <button
-                                onClick={()=>handeltab('todaysplan')}
-                                type="button"
-                                className={`${active ? 'text-4xl' : "bg-transparent"}rounded-md px-4 py-2 text-[10px] font-medium text-[#858b97] transition hover:text-white sm:px-5`}
-                            >
-                                Today's Plan
-                            </button>
 
                             <button
-                                onClick={()=>handeltab('saveplan')}
-                                type="button"
-                                className="rounded-md bg-[#20252e] px-5 py-2 text-[10px] font-bold text-white shadow-sm sm:px-7"
-                            >
-                                Saved
-                            </button>
+                                onClick={() => handeltab('toplan')}
+                                className={`${Boolean(plan === 'toplan') ? `bg-[#c8ff00]` : 'bg-transparent text-[#858b97]'} ${Boolean(plan === 'toplan') ? `text-black` : 'text-[#858b97]'} text-[12px] rounded-md font-bold  px-5 py-2`}>Today's Plan</button>
+
+                            <button
+                                onClick={() => handeltab('saveplan')}
+                                className={`${Boolean(plan === 'saveplan') ? "bg-[#c8ff00] text-black" : 'bg-transparent text-[#858b97]'} text-[12px] font-bold rounded-md px-5 py-2`}>Saved</button>
 
                         </div>
 
@@ -111,41 +153,20 @@ const MyPlan = () => {
                                 Sort By
                             </span>
 
-                            <button
-                                type="button"
-                                className="flex items-center gap-2 rounded-lg border border-[#292f39] bg-[#14171d] px-3 py-2 text-[10px] text-[#d1d5db] transition hover:border-[#c8ff00] hover:text-[#c8ff00]"
-                            >
-                                Duration
-
-                                <svg
-                                    width="11"
-                                    height="11"
-                                    viewBox="0 0 20 20"
-                                    fill="currentColor"
-                                    className="text-[#858b97]"
-                                >
-                                    <path
-                                        fillRule="evenodd"
-                                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.51a.75.75 0 01-1.08 0l-4.25-4.51a.75.75 0 01.02-1.06z"
-                                        clipRule="evenodd"
-                                    />
-                                </svg>
-
-                            </button>
+                            <select onChange={(e) => hendelSort(e.target.value)} defaultValue="Select" className="select select-neutral">
+                                <option disabled={true}>Select</option>
+                                <option value='duration'>Duration</option>
+                                <option value='caloriest'>Caloriest</option>
+                                <option value='rating'>Rating</option>
+                            </select>
 
                         </div>
 
                     </div>
 
 
-                    {/* ================= EMPTY STATE ================= */}
 
-
-                    <Todaysplan />
-                    <Saveplan/>
-                    
-
-
+                    {Boolean(plan === 'toplan') ? (<Todaysplan />) : (<Saveplan />)}
                 </div>
 
             </section>
