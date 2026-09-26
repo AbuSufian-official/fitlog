@@ -10,7 +10,7 @@ const Footer = () => {
                         <Link href='/'>
                             <div className='flex gap-1'>
                                 <Image src='/logo.png' alt='FITLOG' width={20} height={5} />
-                                <span className='font-bold'>FITLOG</span>
+                                <span className='font-bold text-white'>FITLOG</span>
                             </div>
                         </Link>
                         <div>
