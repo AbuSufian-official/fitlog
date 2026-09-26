@@ -12,7 +12,10 @@ const Hero = () => {
                             <h1 className={`text-3xl sm:text-5xl lg:text-6xl font-bold mb-4`}>TRAIN WITH INTENT. LOG<br className='hidden sm:block' /> EVERY SET.</h1>
                             <p className={`text-[14px] text-[#9CA3AF] font-light mb-4`}>FitLog is a dark, no-nonsense gym companion: pick a lift, lock it <br className='hidden sm:block' />
                                 into today&apos;s plan, and watch the week&apos;s work add up.</p>
-                            <button className={`bg-[#C2F800] text-black px-4.5 py-1.5 text-[13px] rounded-[4px]`}>BROWSE WORKOUTS</button>
+                            <a href='#libery'>
+                                <button className={`bg-[#C2F800] text-black px-4.5 py-1.5 text-[13px] rounded-[4px]`}>BROWSE WORKOUTS</button>
+                            </a>
+
 
                         </div>
                         <div className='shrink-0'>

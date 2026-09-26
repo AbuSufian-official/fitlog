@@ -150,7 +150,7 @@ const MyPlan = () => {
                                 Sort By
                             </p>
                             <div>
-                                <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) => hendelSort(e.target.value as SortKey)} defaultValue="Duration" className="font-light select select-neutral bg-[#1F242D] border border-[#2a2f39] rounded-md">
+                                <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) => hendelSort(e.target.value as SortKey)} defaultValue="duration" className="font-light select select-neutral bg-[#1F242D] border border-[#2a2f39] rounded-md">
                                     <option value='duration'>Duration </option>
                                     <option value='caloriest'>Caloriest</option>
                                     <option value='rating'>Rating</option>

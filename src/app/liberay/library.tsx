@@ -9,7 +9,7 @@ const Library = async () => {
 
     return (
         <>
-            <section>
+            <section id="libery">
                 <div className='container mx-auto px-2'>
                     <div>
                         <h2 className='text-2xl font-bold'>THE LIBRARY</h2>
