@@ -1,56 +1,51 @@
 "use client"
 import React, { useState, useContext } from 'react';
-import Link from "next/link";
 import Todaysplan from '../components/todaysplan';
 import Saveplan from '../components/saveplan';
 import { userContext } from '../context/context';
 import { FaChevronDown } from "react-icons/fa";
+import type { ContextValue, Workout } from '../types';
+
+type SortKey = 'duration' | 'caloriest' | 'rating';
+type PlanTab = 'toplan' | 'saveplan';
 
 const MyPlan = () => {
-    let [plan, setplan] = useState('toplan')
-    let { savePlan, todaysPlan, settodaysplan, setsaveplan } = useContext(userContext)
-    function handeltab(pera) {
-        setplan(pera)
+    const [plan, setplan] = useState<PlanTab>('toplan');
+    const { savePlan, todaysPlan, settodaysplan, setsaveplan } = useContext(userContext) as ContextValue;
 
-    }
-    function hendelSort(peraa) {
-
-        if (peraa == 'duration') {
-            if (plan === 'toplan') {
-                const a = [...todaysPlan]
-                settodaysplan(a.sort((a, b) => a.duration - b.duration))
-            } else {
-                const x = [...savePlan]
-                setsaveplan(x.sort((a, b) => a.duration - b.duration))
-            }
-
-        }
-        if (peraa == 'caloriest') {
-            if (plan === 'toplan') {
-                const b = [...todaysPlan]
-                settodaysplan(b.sort((a, b) => a.caloriesBurned - b.caloriesBurned))
-            } else {
-                const y = [...savePlan]
-                setsaveplan(y.sort((a, b) => a.caloriesBurned - b.caloriesBurned))
-            }
-
-        }
-        if (peraa == 'rating') {
-            if (plan === 'toplan') {
-                const c = [...todaysPlan]
-                settodaysplan(c.sort((a, b) => a.rating - b.rating))
-            } else {
-                const z = [...savePlan]
-                setsaveplan(z.sort((a, b) => a.rating - b.rating))
-            }
-
-        }
+    function handeltab(pera: PlanTab): void {
+        setplan(pera);
     }
 
-
-
-
-
+    function hendelSort(peraa: SortKey): void {
+        if (peraa === 'duration') {
+            if (plan === 'toplan') {
+                const a = [...todaysPlan];
+                settodaysplan(a.sort((a: Workout, b: Workout) => a.duration - b.duration));
+            } else {
+                const x = [...savePlan];
+                setsaveplan(x.sort((a: Workout, b: Workout) => a.duration - b.duration));
+            }
+        }
+        if (peraa === 'caloriest') {
+            if (plan === 'toplan') {
+                const b = [...todaysPlan];
+                settodaysplan(b.sort((a: Workout, b: Workout) => a.caloriesBurned - b.caloriesBurned));
+            } else {
+                const y = [...savePlan];
+                setsaveplan(y.sort((a: Workout, b: Workout) => a.caloriesBurned - b.caloriesBurned));
+            }
+        }
+        if (peraa === 'rating') {
+            if (plan === 'toplan') {
+                const c = [...todaysPlan];
+                settodaysplan(c.sort((a: Workout, b: Workout) => a.rating - b.rating));
+            } else {
+                const z = [...savePlan];
+                setsaveplan(z.sort((a: Workout, b: Workout) => a.rating - b.rating));
+            }
+        }
+    }
 
     return (
         <>
@@ -84,7 +79,7 @@ const MyPlan = () => {
 
                                 <p className="mt-1 text-3xl font-black leading-none text-[#c8ff00] sm:text-4xl">
 
-                                    {plan == 'toplan' ? (todaysPlan.length) : (savePlan.length)}
+                                    {plan === 'toplan' ? (todaysPlan.length) : (savePlan.length)}
                                 </p>
                             </div>
 
@@ -96,12 +91,12 @@ const MyPlan = () => {
                                 </p>
 
                                 <p className="mt-1 text-3xl font-black leading-none text-white sm:text-4xl">
-                                    {plan == 'toplan' ? (todaysPlan.reduce((acc, curr) => {
-                                        acc += curr.duration
-                                        return acc
-                                    }, 0)) : (savePlan.reduce((acc, curr) => {
-                                        acc += curr.duration
-                                        return acc
+                                    {plan === 'toplan' ? (todaysPlan.reduce((acc: number, curr: Workout) => {
+                                        acc += curr.duration;
+                                        return acc;
+                                    }, 0)) : (savePlan.reduce((acc: number, curr: Workout) => {
+                                        acc += curr.duration;
+                                        return acc;
                                     }, 0))}
                                 </p>
                             </div>
@@ -114,12 +109,12 @@ const MyPlan = () => {
                                 </p>
 
                                 <p className="mt-1 text-3xl font-black leading-none text-white sm:text-4xl">
-                                    {plan == 'toplan' ? (todaysPlan.reduce((acc, curr) => {
-                                        acc += curr.caloriesBurned
-                                        return acc
-                                    }, 0)) : (savePlan.reduce((acc, curr) => {
-                                        acc += curr.caloriesBurned
-                                        return acc
+                                    {plan === 'toplan' ? (todaysPlan.reduce((acc: number, curr: Workout) => {
+                                        acc += curr.caloriesBurned;
+                                        return acc;
+                                    }, 0)) : (savePlan.reduce((acc: number, curr: Workout) => {
+                                        acc += curr.caloriesBurned;
+                                        return acc;
                                     }, 0))}
 
                                 </p>
@@ -139,7 +134,7 @@ const MyPlan = () => {
 
                             <button
                                 onClick={() => handeltab('toplan')}
-                                className={`${Boolean(plan === 'toplan') ? `bg-[#1F242D] text-white` : 'bg-transparent text-[#858b97]'} ${Boolean(plan === 'toplan') ? `text-black` : 'text-[#858b97]'} text-[12px] rounded-md font-bold  px-5 py-2`}>Today's Plan</button>
+                                className={`${Boolean(plan === 'toplan') ? `bg-[#1F242D] text-white` : 'bg-transparent text-[#858b97]'} ${Boolean(plan === 'toplan') ? `text-black` : 'text-[#858b97]'} text-[12px] rounded-md font-bold  px-5 py-2`}>Today&apos;s Plan</button>
 
                             <button
                                 onClick={() => handeltab('saveplan')}
@@ -155,13 +150,13 @@ const MyPlan = () => {
                                 Sort By
                             </p>
                             <div>
-                                <select onChange={(e) => hendelSort(e.target.value)} defaultValue="Duration" className="font-light select select-neutral bg-[#1F242D] border border-[#2a2f39] rounded-md">
-                                <option value='duration'>Duration </option>
-                                <option value='caloriest'>Caloriest</option>
-                                <option value='rating'>Rating</option>
-                            </select>
+                                <select onChange={(e: React.ChangeEvent<HTMLSelectElement>) => hendelSort(e.target.value as SortKey)} defaultValue="Duration" className="font-light select select-neutral bg-[#1F242D] border border-[#2a2f39] rounded-md">
+                                    <option value='duration'>Duration </option>
+                                    <option value='caloriest'>Caloriest</option>
+                                    <option value='rating'>Rating</option>
+                                </select>
                             </div>
-                            
+
 
                         </div>
 

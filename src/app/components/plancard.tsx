@@ -5,19 +5,20 @@ import Link from 'next/link';
 import { userContext } from '../context/context';
 import { FaCheck } from "react-icons/fa";
 import { toast, Bounce } from 'react-toastify';
+import type { Workout } from '../types';
+import type { ContextValue } from '../types';
 
+interface PlancardProps {
+    info: Workout;
+}
 
+const Plancard = ({ info }: PlancardProps) => {
+    const { todaysPlan, settodaysplan } = useContext(userContext) as ContextValue;
+    const [active, setactive] = useState<boolean>(false);
 
-const Plancard = ({ info }) => {
-
-
-    let { todaysPlan, settodaysplan } = useContext(userContext)
-    let [active, setactive] = useState(false)
-
-    function handelbtnDel() {
-
-        if (Boolean(todaysPlan.find((n) => n == info))) {
-            settodaysplan(todaysPlan.filter((n) => n != info))
+    function handelbtnDel(): void {
+        if (Boolean(todaysPlan.find((n) => n === info))) {
+            settodaysplan(todaysPlan.filter((n) => n !== info));
             toast.success(`${info.name} remove`, {
                 position: "top-right",
                 autoClose: 1000,
@@ -30,11 +31,10 @@ const Plancard = ({ info }) => {
                 transition: Bounce,
             });
         }
-
     }
 
-    function handelcheckbtn() {
-        setactive(!active)
+    function handelcheckbtn(): void {
+        setactive(!active);
         toast.success(`${info.name} mark down`, {
             position: "top-right",
             autoClose: 1000,
@@ -47,10 +47,6 @@ const Plancard = ({ info }) => {
             transition: Bounce,
         });
     }
-
-
-
-
 
     return (
         <>
@@ -138,7 +134,7 @@ const Plancard = ({ info }) => {
                     <div className="flex shrink-0 items-center gap-2 sm:ml-auto">
 
                         {/* View Details */}
-                        <Link href={`http://localhost:3000/card/${info.id}`}>
+                        <Link href={`/card/${info.id}`}>
                             <button
                                 type="button"
                                 className="rounded-full border border-[#343b47] px-4 py-2 text-[10px] font-medium text-[#d1d5db] transition-all duration-300 hover:border-[#c8ff00] hover:text-[#c8ff00]"

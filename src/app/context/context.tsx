@@ -1,23 +1,28 @@
 "use client"
-import React, { createContext,useState, type ReactNode } from 'react';
-export const userContext: React.Context<unknown> = createContext();
+import React, { createContext, useState, type ReactNode, use } from 'react';
+import type { ContextValue, Workout } from '../types';
+
+export const userContext = createContext<ContextValue | null>(null);
+
 const ContextProvider = ({ children }: { children: ReactNode }) => {
+  const [todaysPlan, settodaysplan] = useState<Workout[]>([]);
+  const [savePlan, setsaveplan] = useState<Workout[]>([]);
+  const [active, setactive] = useState<boolean>(false);
 
-
-
-const [todaysPlan,settodaysplan]=useState([])
-const [savePlan,setsaveplan]=useState([])
-const [active,setactive]=useState(false)
-console.log(todaysPlan)
-console.log(savePlan)
-    return (
-        <>
-            <userContext.Provider value={{todaysPlan,settodaysplan,savePlan,setsaveplan,active,setactive}}>
-                {children}
-            </userContext.Provider>
-
-        </>
-    );
+  return (
+    <>
+      <userContext.Provider value={{ todaysPlan, settodaysplan, savePlan, setsaveplan, active, setactive }}>
+        {children}
+      </userContext.Provider>
+    </>
+  );
 };
 
 export default ContextProvider;
+
+// Custom hook for safe context access
+export function useUserContext(): ContextValue {
+  const ctx = use(userContext);
+  if (!ctx) throw new Error('useUserContext must be used within ContextProvider');
+  return ctx;
+}

@@ -1,18 +1,20 @@
-`'use client'`
+'use client'
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { FiClock } from "react-icons/fi";
 import { FaRegStar } from "react-icons/fa";
+import type { Workout } from '../types';
 
+interface CardProps {
+    data: Workout;
+}
 
-
-
-const Card = ({ data }) => {
+const Card = ({ data }: CardProps) => {
 
     return (
         <>
-            <Link href={`http://localhost:3000/card/${data.id}`}>
+            <Link href={`/card/${data.id}`}>
                 <div className="group overflow-hidden rounded-[20px] border border-[#272b32] bg-[#15171c] text-white shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:border-[#3a3f48] hover:shadow-[0_20px_50px_rgba(0,0,0,0.45)]">
 
                     {/* Image */}
@@ -29,7 +31,7 @@ const Card = ({ data }) => {
 
                         {/* Tags */}
                         <div className="mb-5 flex gap-3">
-                            {data.muscleGroups.map((n,index) => {
+                            {data.muscleGroups.map((n: string, index: number) => {
                                 return (
                                     <span key={index} className="rounded-full bg-[#b8ff00] px-3.5 py-1 text-[14px] font-bold uppercase tracking-wide text-black transition-all duration-300 group-hover:bg-[#c6ff29]">
                                         {n}
@@ -56,8 +58,7 @@ const Card = ({ data }) => {
 
                             {/* Time */}
                             <div className="flex items-center gap-2">
-                                <FiClock className='text-[18px]'/>
-                                
+                                <FiClock className='text-[18px]' />
 
                                 <span>{data.duration} min</span>
                             </div>
@@ -78,7 +79,7 @@ const Card = ({ data }) => {
 
                             {/* Rating */}
                             <div className="flex items-center gap-2">
-                                <FaRegStar className='text-[18px]'/>
+                                <FaRegStar className='text-[18px]' />
 
                                 <span>{data.rating}</span>
                             </div>

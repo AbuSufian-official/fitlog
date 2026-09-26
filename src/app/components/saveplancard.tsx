@@ -1,16 +1,24 @@
+"use client"
 import React, { useContext } from 'react';
 import { userContext } from '../context/context';
 import Image from "next/image";
 import Link from 'next/link';
-import { toast,Bounce } from 'react-toastify';
-const Saveplancard = ({infor}) => {
-    let {savePlan,setsaveplan}=useContext(userContext)
-        function handelbtnDell(){
-            
-            if(Boolean(savePlan.find((n)=>n==infor))){
-                setsaveplan(savePlan.filter((n)=>n!=infor))
+import { toast, Bounce } from 'react-toastify';
+import type { Workout } from '../types';
+import type { ContextValue } from '../types';
 
-                toast.success(`${infor.name} remove`, {
+interface SaveplancardProps {
+    infor: Workout;
+}
+
+const Saveplancard = ({ infor }: SaveplancardProps) => {
+    const { savePlan, setsaveplan } = useContext(userContext) as ContextValue;
+
+    function handelbtnDell(): void {
+        if (Boolean(savePlan.find((n) => n === infor))) {
+            setsaveplan(savePlan.filter((n) => n !== infor));
+
+            toast.success(`${infor.name} remove`, {
                 position: "top-right",
                 autoClose: 1000,
                 hideProgressBar: true,
@@ -21,8 +29,9 @@ const Saveplancard = ({infor}) => {
                 theme: "dark",
                 transition: Bounce,
             });
-            }
         }
+    }
+
     return (
         <>
             <div className="w-full rounded-2xl border border-[#272c35] bg-[#15181e] p-3 transition-all duration-300 hover:border-[#3a414d] hover:bg-[#181c23]">
@@ -109,7 +118,7 @@ const Saveplancard = ({infor}) => {
                     <div className="flex shrink-0 items-center gap-2 sm:ml-auto">
 
                         {/* View Details */}
-                        <Link href={`http://localhost:3000/card/${infor.id}`}>
+                        <Link href={`/card/${infor.id}`}>
                             <button
                                 type="button"
                                 className="rounded-full border border-[#343b47] px-4 py-2 text-[10px] font-medium text-[#d1d5db] transition-all duration-300 hover:border-[#c8ff00] hover:text-[#c8ff00]"

@@ -1,21 +1,24 @@
 "use client"
-import React, { use } from 'react';
+import React from 'react';
 import Image from "next/image";
 import {
     Bookmark,
     CalendarPlus,
-    Dumbbell,
-    ChevronRight,
 } from "lucide-react";
 import { toast } from 'react-toastify';
-import { userContext } from '../context/context';
+import { useUserContext } from '../context/context';
 import { Bounce } from 'react-toastify';
-const Details = ({ deta }) => {
-    let { todaysPlan, settodaysplan, savePlan, setsaveplan } = use(userContext)
-    function handelTodaysPlan() {
+import type { Workout } from '../types';
 
+interface DetailsProps {
+    deta: Workout;
+}
 
-        if (Boolean(todaysPlan.find((n) => n == deta))) {
+const Details = ({ deta }: DetailsProps) => {
+    const { todaysPlan, settodaysplan, savePlan, setsaveplan } = useUserContext();
+
+    function handelTodaysPlan(): void {
+        if (Boolean(todaysPlan.find((n) => n === deta))) {
             toast.error(`${deta.name} already adedd`, {
                 position: "top-right",
                 autoClose: 1000,
@@ -28,40 +31,8 @@ const Details = ({ deta }) => {
                 transition: Bounce,
             });
             return;
-
         } else {
-            settodaysplan([...todaysPlan, deta])
-            toast.success(`${deta.name} adedd`, {
-                position: "top-right",
-                autoClose: 1000,
-                hideProgressBar: true,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-                transition: Bounce,
-            });
-        }
-    }
-    function handelSavePlan() {
-
-        if (Boolean(savePlan.find((n) => n == deta))) {
-            toast.error(`${deta.name} already adedd`, {
-                position: "top-right",
-                autoClose: 1000,
-                hideProgressBar: true,
-                closeOnClick: false,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "dark",
-                transition: Bounce,
-            });
-            return;
-
-        } else {
-            setsaveplan([...savePlan, deta])
+            settodaysplan([...todaysPlan, deta]);
             toast.success(`${deta.name} adedd`, {
                 position: "top-right",
                 autoClose: 1000,
@@ -76,20 +47,35 @@ const Details = ({ deta }) => {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    function handelSavePlan(): void {
+        if (Boolean(savePlan.find((n) => n === deta))) {
+            toast.error(`${deta.name} already adedd`, {
+                position: "top-right",
+                autoClose: 1000,
+                hideProgressBar: true,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            });
+            return;
+        } else {
+            setsaveplan([...savePlan, deta]);
+            toast.success(`${deta.name} adedd`, {
+                position: "top-right",
+                autoClose: 1000,
+                hideProgressBar: true,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "dark",
+                transition: Bounce,
+            });
+        }
+    }
 
     return (
         <>
@@ -134,9 +120,6 @@ const Details = ({ deta }) => {
                                         {n}
                                     </span>)
                                 })}
-
-
-
                             </div>
 
                             {/* ================= STATS ================= */}
@@ -147,7 +130,6 @@ const Details = ({ deta }) => {
                                     <span className="text-[9px] font-bold uppercase tracking-wider text-gray-500">
                                         Equipment
                                     </span>
-
                                     <span className="text-[10px] text-gray-200 sm:text-xs">
                                         {deta.equipment}
                                     </span>
@@ -158,7 +140,6 @@ const Details = ({ deta }) => {
                                     <span className="text-[9px] font-bold uppercase tracking-wider text-gray-500">
                                         Difficulty
                                     </span>
-
                                     <span className="text-[10px] text-gray-200 sm:text-xs">
                                         {deta.difficulty}
                                     </span>
@@ -169,7 +150,6 @@ const Details = ({ deta }) => {
                                     <span className="text-[9px] font-bold uppercase tracking-wider text-gray-500">
                                         Sets
                                     </span>
-
                                     <span className="text-[10px] text-gray-200 sm:text-xs">
                                         {deta.sets}
                                     </span>
@@ -180,7 +160,6 @@ const Details = ({ deta }) => {
                                     <span className="text-[9px] font-bold uppercase tracking-wider text-gray-500">
                                         Reps
                                     </span>
-
                                     <span className="text-[10px] text-gray-200 sm:text-xs">
                                         {deta.reps}
                                     </span>
@@ -191,7 +170,6 @@ const Details = ({ deta }) => {
                                     <span className="text-[9px] font-bold uppercase tracking-wider text-gray-500">
                                         Duration
                                     </span>
-
                                     <span className="text-[10px] text-gray-200 sm:text-xs">
                                         {deta.duration} min
                                     </span>
@@ -202,7 +180,6 @@ const Details = ({ deta }) => {
                                     <span className="text-[9px] font-bold uppercase tracking-wider text-gray-500">
                                         Calories
                                     </span>
-
                                     <span className="text-[10px] text-gray-200 sm:text-xs">
                                         {deta.caloriesBurned} kcal
                                     </span>
@@ -213,7 +190,6 @@ const Details = ({ deta }) => {
                                     <span className="text-[9px] font-bold uppercase tracking-wider text-gray-500">
                                         Rating
                                     </span>
-
                                     <span className="text-[10px] text-gray-200 sm:text-xs">
                                         {deta.rating}
                                     </span>
@@ -274,7 +250,7 @@ const Details = ({ deta }) => {
                                         className="transition-transform duration-300 group-hover:rotate-12"
                                     />
 
-                                    Add to today's plan
+                                    Add to today&apos;s plan
                                 </button>
 
                                 <button
