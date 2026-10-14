@@ -44,6 +44,16 @@ https://fitlog-tau-six.vercel.app/
 
 The goal of FitLog is to provide a simple and focused digital workout companion where users can discover exercises, create workout plans, save useful workouts, and stay consistent with their fitness routine.
 
+## How to run this project
+### Requirement
+- install node js
+- install vscode IDE
+
+### Follow Process
+- 1. Firstly clone this repo
+- 2. Open this project in code editor
+- 3. Open terminal and write npm install
+ DONE.. 
 ---
 
 ### 💪 FITLOG
